@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import '../assets/Game.css'
+import { CrossSvg, CircleSvg, RestartSvg } from "../Svg";
+
 export default function Game() {
 
   const [boxes, setBoxes] = useState(Array(9).fill(null));
@@ -21,7 +23,7 @@ export default function Game() {
     }
 
     const newBoxes = [...boxes];
-    newBoxes[index] = "/img/x-icon.svg"
+    newBoxes[index] = <CrossSvg />
     const updatedEmptyBoxes = emptyBoxes.filter(i => i != index);
 
     userChoices.push(index);
@@ -45,7 +47,7 @@ export default function Game() {
 
 
     const newBoxes = [...updateBoxes];
-    newBoxes[cpuIndex] = "/img/o-icon.svg"
+    newBoxes[cpuIndex] = <CircleSvg />
     // console.log('pc: ' + cpuIndex)
 
     setBoxes(newBoxes);
@@ -59,7 +61,7 @@ export default function Game() {
       <div className="game-boxes-area">
         {boxes.map((box, i) => (
           <div key={i} className="box" onClick={() => handleBox(i)}>
-            {box && <img src={box} />}
+            {box}
           </div>
         ))}
       </div>
