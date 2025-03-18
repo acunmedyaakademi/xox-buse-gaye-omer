@@ -1,9 +1,10 @@
 import { createRoot } from 'react-dom/client'
+import { createClient } from '@supabase/supabase-js';
 import App from './App.jsx'
 import Router from './Router.jsx';
 import LoginRegister from './pages/LoginRegister.jsx';
-import { createClient } from '@supabase/supabase-js';
 import Game from './pages/Game.jsx';
+import ChoicePage from './pages/ChoicePage.jsx';
 import './assets/reset.css'
 
 export const supabase = createClient(
@@ -15,6 +16,10 @@ const routes = [
   {
     url: '/login',
     component: <LoginRegister />
+  },
+  {
+    url: '/choice-page',
+    component: <ChoicePage />
   },
   {
     url: '/game',

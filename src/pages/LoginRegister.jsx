@@ -101,8 +101,8 @@ export default function LoginRegister() {
         <p><input required type="email" name="email" placeholder='E-posta adresi' /></p>
         <p><input required type="password" name="password" placeholder='Şifre' /></p>
         <p>
-          <button>{isRegister ? 'Kayıt' : (authUser ? <Link href="/game">Giriş</Link> : 'Giriş')
-             }
+          <button>{isRegister ? 'Kayıt' : (authUser ? <Link href="/choice-page">Giriş</Link> : 'Giriş')
+          }
           </button>
           {!isRegister ?
             <Link href="/sifremi-unuttum" className="btn btn-ghost">Şifremi unuttum</Link>
