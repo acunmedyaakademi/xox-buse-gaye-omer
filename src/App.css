@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-size: 15px;
+  line-height: 1.2em;
+  font-family: system-ui;
+  padding: 50px;
+  display: grid;
+}
+
+.main {
+  background-color: white;
+  padding: 60px 40px;
+}
+
+.container {
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+h1 {
+  margin-bottom: 40px;
+  font-size: 2.4em;
+  line-height: 1.2em;
+}
+
+h5, h6 {
+  font-weight: normal;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: #242124;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 1.8em;
+  line-height: 1.2em;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-weight: 500;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  line-height: 1.2em;
+}
+
+h5 + p {
+  margin-top: 20px;
+}
+
+.post + .post {
+  margin-top: 50px;
+}
+
+p {
+  margin-bottom: 25px;
+  img {
+    border-radius: 6px;
+  }
+}
+
+p:has(+h5) {
+  margin-bottom: 10px;
+} 
+
+.alert {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1em;
+  margin-bottom: 20px;
+}
+
+.alert-success {
+  background-color: rgba(144, 238, 144, 0.4);
+  border-color: lime;
+  color: darkgreen;
+}
+
+.alert-danger {
+  background-color: rgba(240, 128, 128, 0.4);
+  color: darkred;
+  border-color: coral;
+}
+
+.alert-info {
+  background-color: rgba(169, 169, 169, 0.1);
+  color: black;
+  border-color: darkgray;
+}
+
+form {
+  width: 400px;
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 2px solid black;
+  }
+}
+
+button, .btn {
+  appearance: none;
+  border: 0;
+  display: inline-block;
+  background-color: #353839;
+  padding: 12px 20px;
+  color: white;
+  font-size: 14px;
+  line-height: 1em;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #353839f0;
+  }
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: #353839;
+  &:hover {
+    background-color: #35383905;
+  }
+}
+
+.comments {
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+p a {
+  font-weight: 500;
+}
+
+:is(.btn, button) + :is(.btn, button) {
+  margin-left: 5px;
+}
