@@ -43,10 +43,11 @@ export default function LoginRegister() {
 
         // Eğer kullanıcı doğrulandıysa 'users' tablosuna veri ekle
         if (userData) {
+          console.log(userData);
           console.log("Users tablosuna veri ekleniyor...");
           const { error: insertError } = await supabase
             .from('users')
-            .upsert([{ id: userData.id, name: userInfo.name, created_at: new Date() }]);
+            .upsert([{ name: userInfo.name }]);
 
           if (insertError) {
             console.error("Users tablosuna ekleme hatası:", insertError);
