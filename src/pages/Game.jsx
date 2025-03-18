@@ -54,45 +54,30 @@ export default function Game() {
   }
 
   return (
-    <>
-      <div className="contianer">
-        <div className="header">
-          <div className="player-symbols">
-            <img src="/img/x-icon.svg" alt="" />
-            <img src="/img/o-icon.svg" alt="" />
+
+    <div className="game-area">
+      <div className="game-boxes-area">
+        {boxes.map((box, i) => (
+          <div key={i} className="box" onClick={() => handleBox(i)}>
+            {box && <img src={box} />}
           </div>
-          <div className="move-info">
-            <img src="/img/x-turn-icon.svg" alt="" />
-            <p>TURN</p>
-          </div>
-          <button className="restart-button-area">
-            <img src="/img/restart-button.svg" alt="" />
-          </button>
+        ))}
+      </div>
+      <div className="score-area">
+        <div className="player-score-section">
+          <h3>YOU</h3>
+          <p className='player-score'>0</p>
         </div>
-        <div className="game-area">
-          <div className="game-boxes-area">
-            {boxes.map((box, i) => (
-              <div key={i} className="box" onClick={() => handleBox(i)}>
-                {box && <img src={box} />}
-              </div>
-            ))}
-          </div>
-          <div className="score-area">
-            <div className="player-score-section">
-              <h3>YOU</h3>
-              <p className='player-score'>0</p>
-            </div>
-            <div className="ties-score-section">
-              <h3>TIES</h3>
-              <p className='player-score'>0</p>
-            </div>
-            <div className="cpu-score-section">
-              <h3>CPU</h3>
-              <p className='player-score'>0</p>
-            </div>
-          </div>
+        <div className="ties-score-section">
+          <h3>TIES</h3>
+          <p className='player-score'>0</p>
+        </div>
+        <div className="cpu-score-section">
+          <h3>CPU</h3>
+          <p className='player-score'>0</p>
         </div>
       </div>
-    </>
+    </div>
+
   )
 }

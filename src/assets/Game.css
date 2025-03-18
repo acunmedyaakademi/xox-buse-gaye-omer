@@ -3,17 +3,7 @@ button,
   cursor: pointer;
 }
 
-.contianer {
-  padding: 24px;
-  background-color: #1a2a33;
-  min-height: 100vh;
-}
 
-.header {
-  margin-bottom: 64px;
-  display: flex;
-  justify-content: space-between;
-}
 
 .player-symbols {
   display: flex;

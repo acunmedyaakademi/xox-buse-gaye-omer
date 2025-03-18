@@ -4,6 +4,7 @@ import Router from './Router.jsx';
 import LoginRegister from './pages/LoginRegister.jsx';
 import { createClient } from '@supabase/supabase-js';
 import Game from './pages/Game.jsx';
+import './assets/reset.css'
 
 export const supabase = createClient(
   'https://yoknnsdmknjaqbpodjow.supabase.co',
