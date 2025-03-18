@@ -3,6 +3,7 @@ import App from './App.jsx'
 import Router from './Router.jsx';
 import LoginRegister from './pages/LoginRegister.jsx';
 import { createClient } from '@supabase/supabase-js';
+import Game from './pages/Game.jsx';
 
 export const supabase = createClient(
   'https://yoknnsdmknjaqbpodjow.supabase.co',
@@ -13,6 +14,10 @@ const routes = [
   {
     url: '/login',
     component: <LoginRegister />
+  },
+  {
+    url: '/game',
+    component: <Game />
   },
 ];
 

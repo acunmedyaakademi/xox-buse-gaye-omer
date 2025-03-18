@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "../Router";
 import { supabase } from "../main";
+import { Link, usePage } from '../Router'
 
 export default function LoginRegister() {
   const [isRegister, setRegister] = useState(false);
@@ -99,7 +99,8 @@ export default function LoginRegister() {
         <p><input required type="email" name="email" placeholder='E-posta adresi' /></p>
         <p><input required type="password" name="password" placeholder='Şifre' /></p>
         <p>
-          <button>{isRegister ? 'Kayıt' : 'Giriş'}</button>
+          <div>{isRegister ? 'Kayıt' : <Link href="/game">Giriş</Link>}
+          </div>
           {!isRegister ?
             <Link href="/sifremi-unuttum" className="btn btn-ghost">Şifremi unuttum</Link>
             : <button type="button" className="btn-ghost" onClick={() => setRegister(false)}>Vazgeç</button>
