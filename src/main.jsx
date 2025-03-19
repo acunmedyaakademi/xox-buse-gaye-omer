@@ -6,6 +6,7 @@ import LoginRegister from './pages/LoginRegister.jsx';
 import Game from './pages/Game.jsx';
 import ChoicePage from './pages/ChoicePage.jsx';
 import './assets/reset.css'
+import StartPage from './pages/StartPage.jsx';
 
 export const supabase = createClient(
   'https://yoknnsdmknjaqbpodjow.supabase.co',
@@ -14,8 +15,16 @@ export const supabase = createClient(
 
 const routes = [
   {
+    url: '/',
+    component: <StartPage />
+  },
+  {
     url: '/login',
-    component: <LoginRegister />
+    component: <LoginRegister key="login" />
+  },
+  {
+    url: '/signup',
+    component: <LoginRegister key="signup" />
   },
   {
     url: '/choice-page',
@@ -26,6 +35,7 @@ const routes = [
     component: <Game />
   },
 ];
+
 
 const rootElement = document.getElementById('root');
 

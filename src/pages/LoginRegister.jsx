@@ -2,11 +2,19 @@ import { useEffect, useState, useContext } from "react";
 import { supabase } from "../main";
 import { Link, usePage } from '../Router'
 import { UserContext } from "../App";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginRegister() {
-  const [isRegister, setRegister] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const authUser = useContext(UserContext);
+  const page = usePage();
+  const isRegister = page.path === "/signup";
+
+  useEffect(() => {
+    console.log("Sayfa Değişti: ", page.path);
+    setErrorMessage(null);
+  }, [page.path]);
 
   useEffect(() => {
     setErrorMessage(null);
@@ -34,31 +42,29 @@ export default function LoginRegister() {
       if (error) {
         console.error("Kayıt hatası:", error.message);
         setErrorMessage(error.message);
+        toast.error(error.message); // Hata mesajı göster
         return;
       }
 
       console.log("Kayıt başarılı, kullanıcı:", data.user);
 
-      // Kullanıcı başarıyla kayıt olduktan sonra 'users' tablosuna veri ekle
       if (data?.user) {
-        const { data: userData, error: userError } = await supabase.auth.getUser();
+        const { error: insertError } = await supabase
+          .from('users')
+          .upsert([{ name: userInfo.name }]);
 
-        // Eğer kullanıcı doğrulandıysa 'users' tablosuna veri ekle
-        if (userData) {
-          console.log(userData);
-          console.log("Users tablosuna veri ekleniyor...");
-          const { error: insertError } = await supabase
-            .from('users')
-            .upsert([{ name: userInfo.name }]);
-
-          if (insertError) {
-            console.error("Users tablosuna ekleme hatası:", insertError);
-          } else {
-            console.log("Users tablosuna ekleme başarılı.");
-          }
+        if (insertError) {
+          console.error("Users tablosuna ekleme hatası:", insertError);
+          toast.error("Database error: " + insertError.message);
         } else {
-          console.error("Kullanıcı bilgileri alınamadı.");
+          console.log("Users tablosuna ekleme başarılı.");
+          toast.success("Registration successful! Redirecting to login...");
         }
+
+        // 2 saniye sonra giriş sayfasına yönlendir
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
       }
     } else {
       console.log("Giriş yapılıyor...");
@@ -70,44 +76,49 @@ export default function LoginRegister() {
       if (error) {
         console.error("Giriş hatası:", error.message);
         setErrorMessage(error.message);
+        toast.error(error.message); // Hata mesajı göster
         return;
       }
 
       console.log("Giriş başarılı, kullanıcı:", data.user);
+      toast.success("Login successful! Redirecting...");
+
+      // Giriş yaptıktan sonra yönlendirme
+      setTimeout(() => {
+        window.location.href = "/game";
+      }, 3000);
     }
   }
 
-
-
   return (
     <>
-      {isRegister ?
-        <>
-          <h2>Kayıt ol</h2>
-          <p>Kişisel bilgilerini girerek yeni kayıt oluşturabilirsin. Kayıt olduktan sonra e-postanı doğrulamayı unutma!</p>
-        </> :
-        <>
-          <h2>Giriş yap</h2>
-          <p>Kullanıcı bilgilerin ile sisteme giriş yapabilirsin. Eğer bilgilerini hatırlamıyorsan <Link href="/sifremi-unuttum">şifreni sıfırla</Link>yabilirsin.</p>
-        </>
-      }
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
-      <p><label><input type="checkbox" onChange={() => setRegister(!isRegister)} checked={isRegister} /> Yeni kayıt oluyorum.</label></p>
+      {isRegister ?
+        <div className="signUpTitle">
+          <h2>Sign Up</h2>
+          <p>You can create a new registration by entering your personal information. Are you already a member? <Link href="/login">Login</Link></p>
+        </div> :
+        <div className="loginTitle">
+          <h2>Login</h2>
+          <p>You can log in to the system with your user information. Not a member yet? <Link href="/signup">Sign Up</Link></p>
+        </div>
+      }
 
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        {isRegister && <p><input required type="text" name="name" placeholder='Ad soyad' /></p>}
-        <p><input required type="email" name="email" placeholder='E-posta adresi' /></p>
-        <p><input required type="password" name="password" placeholder='Şifre' /></p>
+      <form autoComplete="off" onSubmit={handleSubmit} className={isRegister ? 'signUpForm' : 'loginForm'}>
+        {isRegister && <p><input required type="text" name="name" placeholder='Username' /></p>}
+        <p><input required type="email" name="email" placeholder='E-mail Address' /></p>
+        <p><input required type="password" name="password" placeholder='Password' /></p>
         <p>
-          <button>{isRegister ? 'Kayıt' : (authUser ? <Link href="/choice-page">Giriş</Link> : 'Giriş')
-          }
-          </button>
-          {!isRegister ?
-            <Link href="/sifremi-unuttum" className="btn btn-ghost">Şifremi unuttum</Link>
-            : <button type="button" className="btn-ghost" onClick={() => setRegister(false)}>Vazgeç</button>
-          }
+          <button>{isRegister ? 'Sign Up' : (authUser ? <Link href="/choice-page">Login</Link> : 'Giriş')}</button>
+          <div className="forgotPasBtn">
+            {!isRegister ?
+              <Link href="/forgot-my-password">Forgot Password</Link>
+              : ''
+            }
+          </div>
         </p>
       </form>
     </>

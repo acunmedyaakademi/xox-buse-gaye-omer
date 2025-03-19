@@ -3,21 +3,25 @@ import "./App.css";
 import { Link, usePage } from "./Router";
 import { supabase } from "./main";
 import { GameProvider } from "./pages/GameContext";
+import { CircleSvg, CrossSvg } from "./Svg";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const UserContext = createContext(null);
 
 function App() {
-  const page = usePage();
+  const page = usePage(); // Burada artık `undefined` olmamalı!
   const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session);
+    console.log("Aktif Sayfa:", page.path); // 🚀 Debug için buraya ekleyelim!
+  }, [page]);
 
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" || event === "USER_UPDATED") {
         setAuthUser(session.user.user_metadata);
       }
-
       if (event === "SIGNED_OUT") {
         setAuthUser(null);
       }
@@ -28,17 +32,15 @@ function App() {
 
   return (
     <GameProvider>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       <UserContext.Provider value={authUser}>
         <div className="container">
           <header className="header">
-            <h1>
-              <Link href="/">Game</Link>
-            </h1>
-            <div className="loginSection">
-              <Link href="/login" className="btn btn-ghost">
-                Giriş
+            <div className="xoLogo">
+              <Link href="/">
+                <CrossSvg />
+                <CircleSvg />
               </Link>
-              {/* <Link href="/giris" className="btn">Kayıt Ol</Link> */}
             </div>
           </header>
           {page.component}
