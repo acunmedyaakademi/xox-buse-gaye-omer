@@ -4,28 +4,34 @@ import { CrossSvg, CircleSvg, RestartSvg } from "../Svg";
 import { GameContext } from "./GameContext";
 
 export default function Game() {
-  const { playerMark, setPlayerMark } = useContext(GameContext);
+  const { playerMark, setPlayerMark, cpuMark, setCpuMark } = useContext(GameContext);
 
   const [boxes, setBoxes] = useState(Array(9).fill(null));
   const [emptyBoxes, setEmptyBoxes] = useState([...Array(9).keys()]);
   const [isUserTurn, setIsUserTurn] = useState(true);
   const [userChoices, setUserChoices] = useState([]);
   const [cpuChoices, setCpuChoices] = useState([]);
-  const [gameOver, setGameOver] = useState(false); // Oyunun bittiğini takip eden state
+  const [gameOver, setGameOver] = useState(false); // oyunun bittiğini takip eden state
+  const [ties, setTies] = useState(0); // beraberlik sayısını saklayacak state
 
   const winnerCombs = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
     [0, 4, 8], [2, 4, 6]
   ];
 
   const [selectedMark, setSelectedMark] = useState(null);
 
+
   useEffect(() => {
     const storedMark = localStorage.playerMark;
+    const storedCpuMark = localStorage.cpuMark;
     if (storedMark) {
       setSelectedMark(storedMark);
       setPlayerMark(storedMark);
+    }
+    if (storedCpuMark) {
+      setCpuMark(storedCpuMark);
     }
   }, [setPlayerMark]);
 
@@ -66,6 +72,17 @@ export default function Game() {
       return;
     }
 
+    if (updatedEmptyBoxes.length === 0 && !checkWinner(newUserChoices)) {
+      setGameOver(true);
+      setTies(prev => prev + 1);
+      setTimeout(() => {
+        alert("Oyun berabere! 🤝");
+        resetGame();
+      }, 200);
+      return;
+    }
+
+
     setIsUserTurn(false);
 
     setTimeout(() => {
@@ -97,6 +114,17 @@ export default function Game() {
       return;
     }
 
+    if (updatedEmptyBoxes.length === 0 && !checkWinner(newCpuChoices)) {
+      setGameOver(true);
+      setTies(prev => prev + 1);
+      setTimeout(() => {
+        alert("Oyun berabere! 🤝");
+        resetGame();
+      }, 200);
+      return;
+    }
+
+
     setIsUserTurn(true);
   }
 
@@ -111,15 +139,15 @@ export default function Game() {
       </div>
       <div className="score-area">
         <div className="player-score-section">
-          <h3>YOU</h3>
+          <h3>{selectedMark} (YOU)</h3>
           <p className='player-score'>0</p>
         </div>
         <div className="ties-score-section">
           <h3>TIES</h3>
-          <p className='player-score'>0</p>
+          <p className='player-score'>{ties}</p>
         </div>
         <div className="cpu-score-section">
-          <h3>CPU</h3>
+          <h3>{cpuMark} (CPU)</h3>
           <p className='player-score'>0</p>
         </div>
       </div>
