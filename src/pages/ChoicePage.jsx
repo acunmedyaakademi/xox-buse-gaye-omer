@@ -4,12 +4,17 @@ import { GameContext } from "./GameContext";
 import { CrossSvg, CircleSvg } from "../Svg";
 
 export default function ChoicePage() {
-  const { playerMark, setPlayerMark } = useContext(GameContext);
+  const { playerMark, setPlayerMark, cpuMark, setCpuMark } = useContext(GameContext);
 
   const handlePlayerChoice = (mark) => {
     setPlayerMark(mark);
+    setCpuMark(mark === "X" ? "O" : "X");
+
     localStorage.playerMark = mark;
+    localStorage.cpuMark = mark === "X" ? "O" : "X";
+
     console.log("Seçilen işaret:", mark);
+    console.log("CPU işareti:", mark === "X" ? "O" : "X");
   };
 
   return (
