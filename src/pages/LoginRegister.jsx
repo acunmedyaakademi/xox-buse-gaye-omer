@@ -85,7 +85,7 @@ export default function LoginRegister() {
 
       // Giriş yaptıktan sonra yönlendirme
       setTimeout(() => {
-        window.location.href = "/game";
+        window.location.href = "/choice-page";
       }, 3000);
     }
   }

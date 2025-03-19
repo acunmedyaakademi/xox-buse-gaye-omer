@@ -23,6 +23,14 @@ body {
   margin-inline: auto;
 }
 
+.cross-svg {
+  fill:#31C3BD;
+}
+
+.circle-svg {
+  fill:#F2B137;
+}
+
 .loginSection {
   display: flex;
   flex-direction: column;
