@@ -11,15 +11,15 @@ button,
 .move-info {
   display: flex;
   gap: 9px;
-  background-color: #1F3641;
-  box-shadow: 0px -4px 0px 0px #10212A inset;
+  background-color: #1f3641;
+  box-shadow: 0px -4px 0px 0px #10212a inset;
   width: 96px;
   align-items: center;
   justify-content: center;
   padding: 9px 15px;
 
   P {
-    color: #A8BFC9;
+    color: #a8bfc9;
   }
 
   img {
@@ -29,7 +29,7 @@ button,
 }
 
 .restart-button-area {
-  background-color: #A8BFC9;
+  background-color: #a8bfc9;
   padding: 12px;
   width: 40px;
 }
@@ -51,8 +51,8 @@ button,
 .box {
   height: 96px;
   width: 96px;
-  background-color: #1F3641;
-  box-shadow: 0px -8px 0px 0px #10212A inset;
+  background-color: #1f3641;
+  box-shadow: 0px -8px 0px 0px #10212a inset;
   border-radius: 10px;
   padding: 10px 15px;
   display: flex;
@@ -72,11 +72,10 @@ button,
   flex-direction: column;
   text-align: center;
   padding: 12px 20px;
-
 }
 
 .player-score-section {
-  background-color: #31C3BD;
+  background-color: #31c3bd;
 }
 
 .ties-score-section {
@@ -84,19 +83,19 @@ button,
 }
 
 .cpu-score-section {
-  background-color: #F2B137;
+  background-color: #f2b137;
 }
 
 /* Gaye Başlangıç */
 
 .choice-content {
-  background-color: #1F3641;
-  color: #A8BFC9;
+  background-color: #1f3641;
+  color: #a8bfc9;
   border-radius: 15px;
   padding-top: 24px;
   padding-bottom: 30px;
   text-align: center;
-  box-shadow: 0px -8px 0px 0px #10212A inset;
+  box-shadow: 0px -8px 0px 0px #10212a inset;
   margin-bottom: 32px;
 
   h1 {
@@ -119,7 +118,7 @@ button,
 }
 
 .choice-area {
-  background-color: #1A2A33;
+  background-color: #1a2a33;
   border-radius: 10px;
   padding: 9px 8px;
   margin-inline: 24px;
@@ -138,24 +137,23 @@ button,
   svg {
     width: 32px;
     height: 32px;
-    fill: #A8A8A8;
+    fill: #a8a8a8;
   }
 }
 
 .cross-svg {
-  fill:#31C3BD;
+  fill: #31c3bd;
 }
 
 .circle-svg {
-  fill:#F2B137;
+  fill: #f2b137;
 }
 
 .choice-button.active {
-  background-color: #A8BFC9;
+  background-color: #a8bfc9;
 
   svg {
-    fill: #1A2A33;
-
+    fill: #1a2a33;
   }
 }
 
@@ -182,11 +180,10 @@ button,
     padding-bottom: 22px;
     border-radius: 15px;
     text-decoration: none;
-    color: #1A2A33;
-    background-color: #F2B137;
-    box-shadow: 0px -8px 0px 0px #CC8B13 inset;
+    color: #1a2a33;
+    background-color: #f2b137;
+    box-shadow: 0px -8px 0px 0px #cc8b13 inset;
   }
-
 }
 
 /* Gaye Bitiş */
@@ -206,52 +203,116 @@ button,
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+  background-color: #1f3641;
+  height: 266px;
   text-align: center;
-  width: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
+  gap: 16px;
+  margin-inline: auto;
+  margin-top: 31px;
+  max-width: 241px;
 }
 
 .quit-btn {
-  background: red;
-  color: white;
+  background: #A8BFC9;
+  box-shadow: 0px -4px 0px 0px #6B8997 inset;
+  color: #1A2A33;
   border: none;
-  padding: 10px 20px;
+  padding: 15px 17px 18px 18px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-family: 'Outfit';
+font-weight: 700;
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 1px;
+text-align: center;
 }
 
 .next-round-btn {
-  background: green;
-  color: white;
+  background: #F2B137;
+  box-shadow: 0px -4px 0px 0px #CC8B13 inset;
+  color: #1A2A33;
   border: none;
-  padding: 10px 20px;
+  padding: 15px 16px 17px 17px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-family: 'Outfit';
+font-weight: 700;
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 1px;
+text-align: center;
 }
 
-.quit-btn:hover, .next-round-btn:hover {
+.quit-btn:hover,
+.next-round-btn:hover {
   opacity: 0.8;
 }
 
+.winnerScreenText {
+  .takesTheRoundPlayer,
+  .takesTheRoundCpu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 23px;
+
+    svg {
+      width: 64px;
+    }
+
+    h4 {
+      font-family: "Outfit";
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 100%;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+  }
+
+  h5 {
+    font-family: "Outfit";
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #a8bfc9;
+  }
+}
+
+.rounTiedScreen h5 {
+  color: #A8BFC9;
+  font-family: 'Outfit';
+font-weight: 700;
+font-size: 40px;
+line-height: 100%;
+letter-spacing: 2.5px;
+text-align: center;
+text-transform: uppercase;
+
+}
 
 /* Buse Bitiş */
 
 /* Tablet Start */
 
 @media (width >= 768px) {
-  
 }
 
 /* Desktop Start */
 
 @media (width >= 1280px) {
-
 }
