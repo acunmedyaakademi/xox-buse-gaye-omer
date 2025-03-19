@@ -1,41 +1,44 @@
-import { useState, useEffect, Fragment } from "react";
-import { getPage } from "./helper";
+import { createContext, useContext, useState, useEffect } from "react";
 
-let page;
+const PageContext = createContext(null);
 
 export function usePage() {
-  return page;
+  return useContext(PageContext);
 }
 
-export default function Router({ children, routes }) {
-  const [url, setUrl] = useState(location.href.replace(location.origin, ''));
+export default function Router({ routes, children }) {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   useEffect(() => {
-    window.addEventListener('popstate', handleRouteChange);
-
-    window.addEventListener('routeChange', handleRouteChange);
-
     function handleRouteChange() {
-      setUrl(location.href.replace(location.origin, ''));
+      console.log("Sayfa değişti:", window.location.pathname); // Debug için
+      setCurrentPath(window.location.pathname);
     }
+
+    window.addEventListener("popstate", handleRouteChange);
+    return () => window.removeEventListener("popstate", handleRouteChange);
   }, []);
 
-  page = getPage(routes, url);
+  const activePage = routes.find((route) => route.url === currentPath) || routes[0];
 
-  return <Fragment key={url}>{children}</Fragment>
+  return (
+    <PageContext.Provider value={{ path: currentPath, component: activePage.component }}>
+      {children}
+    </PageContext.Provider>
+  );
 }
 
-const routeChange = new Event('routeChange');
-
-export function Link({ href, children, className }) {
+// **HATA BURADAYDI!** Eğer `export` unutulursa, `import { Link }` hata verir!
+export function Link({ href, children, ...props }) {
   function handleClick(e) {
     e.preventDefault();
-    //e.target.getAttribute('href')
-    history.pushState(null, '', href);
-    window.dispatchEvent(routeChange);
+    window.history.pushState({}, "", href);
+    window.dispatchEvent(new PopStateEvent("popstate"));
   }
 
   return (
-    <a href={href} onClick={handleClick} className={className}>{children}</a>
-  )
+    <a className="link" href={href} onClick={handleClick} {...props}>
+      {children}
+    </a>
+  );
 }
