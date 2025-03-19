@@ -114,8 +114,10 @@ export default function Game() {
 
     if (checkWinner(newCpuChoices)) {
       setGameOver(true);
-      setWinner("CPU");
-      setShowModal(true);
+      setTimeout(() => {
+        setWinner("CPU");
+        setShowModal(true);
+      }, 500);
       return;
     }
 
