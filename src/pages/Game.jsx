@@ -26,16 +26,24 @@ export default function Game() {
 
 
   useEffect(() => {
-    const storedMark = localStorage.playerMark;
-    const storedCpuMark = localStorage.cpuMark;
-    if (storedMark) {
+    const storedMark = localStorage.playerMark; // kullanıcının seçtiği işareti al
+    const storedCpuMark = localStorage.cpuMark; // cpunun kullanacağı işareti al
+    if (storedMark) { // eğer kullanıcı bir işaret seçtiyse
       setSelectedMark(storedMark);
-      setPlayerMark(storedMark);
+      setPlayerMark(storedMark); // kullanıcının seçtiği işareti güncelle
+      setCpuMark(storedCpuMark); // cpunun kullanacağı işareti güncelle
+
+      // kullanıcı o seçtiyse cpu başlar, x seçtiyse kullanıcı başlar
+      setIsUserTurn(storedMark === "X");
     }
-    if (storedCpuMark) {
-      setCpuMark(storedCpuMark);
+  }, [setPlayerMark, setCpuMark]);
+
+  useEffect(() => {
+    // Eğer cpunun başlaması gerekiyorsa ve oyun bitmediyse ilk hamleyi cpu yapsın
+    if (!isUserTurn && !gameOver) {
+      setTimeout(() => handleCPUMove(emptyBoxes, boxes), 750);
     }
-  }, [setPlayerMark]);
+  }, [isUserTurn]);
 
   function resetGame() {
     setTimeout(() => {
@@ -43,8 +51,8 @@ export default function Game() {
       setEmptyBoxes([...Array(9).keys()]);
       setUserChoices([]);
       setCpuChoices([]);
-      setIsUserTurn(true);
-      setGameOver(false); // Oyunun bittiğini sıfırla
+      setIsUserTurn(selectedMark === "X");
+      setGameOver(false); // oyunun bittiğini sıfırla
       setShowModal(false);
     }, 300);
   }
