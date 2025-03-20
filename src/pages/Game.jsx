@@ -4,7 +4,8 @@ import { CrossSvg, CircleSvg, RestartSvg } from "../Svg";
 import { GameContext } from "./GameContext";
 
 export default function Game() {
-  const { playerMark, setPlayerMark, cpuMark, setCpuMark } = useContext(GameContext);
+  const { playerMark, setPlayerMark, cpuMark, setCpuMark } =
+    useContext(GameContext);
 
   const [boxes, setBoxes] = useState(Array(9).fill(null));
   const [emptyBoxes, setEmptyBoxes] = useState([...Array(9).keys()]);
@@ -17,13 +18,17 @@ export default function Game() {
   const [ties, setTies] = useState(0);
 
   const winnerCombs = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
 
   const [selectedMark, setSelectedMark] = useState(null);
-
 
   useEffect(() => {
     const storedMark = localStorage.playerMark; // kullanıcının seçtiği işareti al
@@ -74,7 +79,7 @@ export default function Game() {
 
     setBoxes(newBoxes);
     setEmptyBoxes(updatedEmptyBoxes);
-    console.log(updatedEmptyBoxes)
+    console.log(updatedEmptyBoxes);
     setUserChoices(newUserChoices);
 
     if (checkWinner(newUserChoices)) {
@@ -88,14 +93,13 @@ export default function Game() {
 
     if (updatedEmptyBoxes.length === 0 && !checkWinner(newUserChoices)) {
       setGameOver(true);
-      setTies(prev => prev + 1);
+      setTies((prev) => prev + 1);
       setTimeout(() => {
-        alert("Oyun berabere! 🤝");
-        resetGame();
+        setWinner("TIE"); 
+        setShowModal(true);
       }, 200);
       return;
     }
-
 
     setIsUserTurn(false);
 
@@ -116,7 +120,7 @@ export default function Game() {
     const newBoxes = [...updateBoxes];
     newBoxes[cpuIndex] = playerMark === "X" ? <CircleSvg /> : <CrossSvg />;
 
-    const remainingEmptyBoxes = updatedEmptyBoxes.filter(i => i !== cpuIndex);
+    const remainingEmptyBoxes = updatedEmptyBoxes.filter((i) => i !== cpuIndex);
     setBoxes(newBoxes);
     setEmptyBoxes(remainingEmptyBoxes);
 
@@ -131,14 +135,13 @@ export default function Game() {
 
     if (updatedEmptyBoxes.length === 0 && !checkWinner(newCpuChoices)) {
       setGameOver(true);
-      setTies(prev => prev + 1);
+      setTies((prev) => prev + 1);
       setTimeout(() => {
-        alert("Oyun berabere! 🤝");
-        resetGame();
+        setWinner("TIE");
+        rsetShowModal(true); 
       }, 200);
       return;
     }
-
 
     setIsUserTurn(true);
   }
@@ -155,32 +158,61 @@ export default function Game() {
       <div className="score-area">
         <div className="player-score-section">
           <h3>{selectedMark} (YOU)</h3>
-          <p className='player-score'>0</p>
+          <p className="player-score">0</p>
         </div>
         <div className="ties-score-section">
           <h3>TIES</h3>
-          <p className='player-score'>{ties}</p>
+          <p className="player-score">{ties}</p>
         </div>
         <div className="cpu-score-section">
           <h3>{cpuMark} (CPU)</h3>
-          <p className='player-score'>0</p>
+          <p className="player-score">0</p>
         </div>
       </div>
 
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>
-              {winner === "YOU" && "Tebrikler, Kazandınız!"}
-              {winner === "CPU" && "CPU Kazandı!"}
-              {winner === "TIE" && "Berabere!"}
-            </h2>
+            {winner === "YOU" && (
+              <div className="winnerScreenText">
+                <h5>YOU WON!</h5>
+                <div className="takesTheRoundPlayer">
+                  {playerMark === "X" ? <CrossSvg /> : <CircleSvg />}
+                  <h4
+                    style={{
+                      color: playerMark === "X" ? "#31C3BD" : "#F2B137",
+                    }}
+                  >
+                    TAKES THE ROUND
+                  </h4>
+                </div>
+              </div>
+            )}
+            {winner === "CPU" && (
+              <div className="winnerScreenText">
+                <h5>OH NO, YOU LOST…</h5>
+                <div className="takesTheRoundCpu">
+                  {playerMark === "X" ? <CircleSvg /> : <CrossSvg />}{" "}
+                  <h4
+                    style={{
+                      color: playerMark === "X" ? "#F2B137" : "#31C3BD",
+                    }}
+                  >
+                    TAKES THE ROUND
+                  </h4>
+                </div>
+              </div>
+            )}
+            {winner === "TIE" && <div className="rounTiedScreen"><h5>ROUND TIED</h5></div>}
             <div className="modal-buttons">
-              <button onClick={() => window.location.href = "/choice-page"} className="quit-btn">
-                Quit
+              <button
+                onClick={() => (window.location.href = "/choice-page")}
+                className="quit-btn"
+              >
+                QUIT
               </button>
               <button onClick={resetGame} className="next-round-btn">
-                Next Round
+                NEXT ROUND
               </button>
             </div>
           </div>
