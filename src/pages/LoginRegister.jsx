@@ -4,6 +4,8 @@ import { Link, usePage } from '../Router'
 import { UserContext } from "../App";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "../App.css";
+import { CrossSvg, CircleSvg } from "../Svg";
 
 export default function LoginRegister() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -93,7 +95,14 @@ export default function LoginRegister() {
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-
+      <header className="header">
+        <div className="xoLogo">
+          <Link href="/">
+            <CrossSvg />
+            <CircleSvg />
+          </Link>
+        </div>
+      </header>
       {isRegister ?
         <div className="signUpTitle">
           <h2>Sign Up</h2>
@@ -112,7 +121,7 @@ export default function LoginRegister() {
         <p><input required type="email" name="email" placeholder='E-mail Address' /></p>
         <p><input required type="password" name="password" placeholder='Password' /></p>
         <p>
-          <button>{isRegister ? 'Sign Up' : (authUser ? <Link href="/choice-page">Login</Link> : 'Giriş')}</button>
+          <button>{isRegister ? 'Sign Up' : (authUser ? <Link href="/choice-page">Login</Link> : 'Login')}</button>
           <div className="forgotPasBtn">
             {!isRegister ?
               <Link href="/forgot-my-password">Forgot Password</Link>
@@ -121,6 +130,7 @@ export default function LoginRegister() {
           </div>
         </p>
       </form>
+
     </>
   )
 }

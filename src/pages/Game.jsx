@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
+import { Link } from '../Router'
 import "../assets/Game.css";
+import "../App.css";
 import { CrossSvg, CircleSvg, RestartSvg } from "../Svg";
 import { GameContext } from "./GameContext";
 
@@ -9,7 +11,7 @@ export default function Game() {
 
   const [boxes, setBoxes] = useState(Array(9).fill(null));
   const [emptyBoxes, setEmptyBoxes] = useState([...Array(9).keys()]);
-  const [isUserTurn, setIsUserTurn] = useState(true);
+  const [isUserTurn, setIsUserTurn] = useState(true); // sıranın kullanıcıda olma durumu
   const [userChoices, setUserChoices] = useState([]);
   const [cpuChoices, setCpuChoices] = useState([]);
   const [gameOver, setGameOver] = useState(false); // Oyunun bittiğini takip eden state
@@ -95,7 +97,7 @@ export default function Game() {
       setGameOver(true);
       setTies((prev) => prev + 1);
       setTimeout(() => {
-        setWinner("TIE"); 
+        setWinner("TIE");
         setShowModal(true);
       }, 200);
       return;
@@ -138,7 +140,7 @@ export default function Game() {
       setTies((prev) => prev + 1);
       setTimeout(() => {
         setWinner("TIE");
-        rsetShowModal(true); 
+        rsetShowModal(true);
       }, 200);
       return;
     }
@@ -147,77 +149,98 @@ export default function Game() {
   }
 
   return (
-    <div className="game-area">
-      <div className="game-boxes-area">
-        {boxes.map((box, i) => (
-          <div key={i} className="box" onClick={() => handleBox(i)}>
-            {box}
+    <>
+      <header className="header-game">
+        <div className="xoLogo">
+          <Link href="/">
+            <CrossSvg />
+            <CircleSvg />
+          </Link>
+        </div>
+        <div className="turn">
+          <p>{isUserTurn ? `${playerMark} TURN` : `${cpuMark} TURN`}</p>
+        </div>
+        <div onClick={resetGame} className="restart-btn">
+          <RestartSvg />
+        </div>
+      </header>
+      <div className="game-area">
+        <div className="game-boxes-area">
+          {boxes.map((box, i) => (
+            <div
+              key={i}
+              className={`box ${isUserTurn && !box ? (playerMark === "X" ? "hover-x" : "hover-o") : ""
+                }`}
+              onClick={() => handleBox(i)}
+            >
+              {box}
+            </div>
+          ))}
+        </div>
+        <div className="score-area">
+          <div className="player-score-section">
+            <h3>{selectedMark} (YOU)</h3>
+            <p className="player-score">0</p>
           </div>
-        ))}
-      </div>
-      <div className="score-area">
-        <div className="player-score-section">
-          <h3>{selectedMark} (YOU)</h3>
-          <p className="player-score">0</p>
+          <div className="ties-score-section">
+            <h3>TIES</h3>
+            <p className="player-score">{ties}</p>
+          </div>
+          <div className="cpu-score-section">
+            <h3>{cpuMark} (CPU)</h3>
+            <p className="player-score">0</p>
+          </div>
         </div>
-        <div className="ties-score-section">
-          <h3>TIES</h3>
-          <p className="player-score">{ties}</p>
-        </div>
-        <div className="cpu-score-section">
-          <h3>{cpuMark} (CPU)</h3>
-          <p className="player-score">0</p>
-        </div>
-      </div>
 
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            {winner === "YOU" && (
-              <div className="winnerScreenText">
-                <h5>YOU WON!</h5>
-                <div className="takesTheRoundPlayer">
-                  {playerMark === "X" ? <CrossSvg /> : <CircleSvg />}
-                  <h4
-                    style={{
-                      color: playerMark === "X" ? "#31C3BD" : "#F2B137",
-                    }}
-                  >
-                    TAKES THE ROUND
-                  </h4>
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              {winner === "YOU" && (
+                <div className="winnerScreenText">
+                  <h5>YOU WON!</h5>
+                  <div className="takesTheRoundPlayer">
+                    {playerMark === "X" ? <CrossSvg /> : <CircleSvg />}
+                    <h4
+                      style={{
+                        color: playerMark === "X" ? "#31C3BD" : "#F2B137",
+                      }}
+                    >
+                      TAKES THE ROUND
+                    </h4>
+                  </div>
                 </div>
-              </div>
-            )}
-            {winner === "CPU" && (
-              <div className="winnerScreenText">
-                <h5>OH NO, YOU LOST…</h5>
-                <div className="takesTheRoundCpu">
-                  {playerMark === "X" ? <CircleSvg /> : <CrossSvg />}{" "}
-                  <h4
-                    style={{
-                      color: playerMark === "X" ? "#F2B137" : "#31C3BD",
-                    }}
-                  >
-                    TAKES THE ROUND
-                  </h4>
+              )}
+              {winner === "CPU" && (
+                <div className="winnerScreenText">
+                  <h5>OH NO, YOU LOST…</h5>
+                  <div className="takesTheRoundCpu">
+                    {playerMark === "X" ? <CircleSvg /> : <CrossSvg />}{" "}
+                    <h4
+                      style={{
+                        color: playerMark === "X" ? "#F2B137" : "#31C3BD",
+                      }}
+                    >
+                      TAKES THE ROUND
+                    </h4>
+                  </div>
                 </div>
+              )}
+              {winner === "TIE" && <div className="rounTiedScreen"><h5>ROUND TIED</h5></div>}
+              <div className="modal-buttons">
+                <button
+                  onClick={() => (window.location.href = "/choice-page")}
+                  className="quit-btn"
+                >
+                  QUIT
+                </button>
+                <button onClick={resetGame} className="next-round-btn">
+                  NEXT ROUND
+                </button>
               </div>
-            )}
-            {winner === "TIE" && <div className="rounTiedScreen"><h5>ROUND TIED</h5></div>}
-            <div className="modal-buttons">
-              <button
-                onClick={() => (window.location.href = "/choice-page")}
-                className="quit-btn"
-              >
-                QUIT
-              </button>
-              <button onClick={resetGame} className="next-round-btn">
-                NEXT ROUND
-              </button>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }

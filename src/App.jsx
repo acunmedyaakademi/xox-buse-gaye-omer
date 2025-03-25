@@ -4,7 +4,7 @@ import { Link, usePage } from "./Router";
 import { supabase } from "./main";
 import { GameProvider } from "./pages/GameContext";
 import { CircleSvg, CrossSvg } from "./Svg";
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const UserContext = createContext(null);
@@ -35,14 +35,7 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       <UserContext.Provider value={authUser}>
         <div className="container">
-          <header className="header">
-            <div className="xoLogo">
-              <Link href="/">
-                <CrossSvg />
-                <CircleSvg />
-              </Link>
-            </div>
-          </header>
+
           {page.component}
         </div>
       </UserContext.Provider>

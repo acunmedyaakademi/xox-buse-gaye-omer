@@ -11,7 +11,7 @@ body {
 }
 
 .header {
-  margin-bottom: 64px;
+  margin-bottom: 32px;
   display: flex;
   justify-content: center;
 }
@@ -90,13 +90,38 @@ form {
         text-decoration: none;
       }
     }
-  } 
+  }
+
+  input {
+    background-color: #1F3641;
+    box-shadow: 0px -8px 0px 0px #10212A inset;
+    border: none;
+    padding-inline: 10px;
+    padding-top: 10px;
+    padding-bottom: 18px;
+    width: 100%;
+    max-width: 460px;
+    border-radius: 5px;
+    color: #A8BFC9;
+    border: 2px solid transparent;
+  }
+
+  input:focus {
+    border: 2px solid #31C3BD;
+    outline: none;
+  }
+  
 }
 
 .loginForm p button {
   background-color: #F2B137;
   box-shadow: 0px -8px 0px 0px #CC8B13 inset;
   margin-top: 30px;
+  cursor: pointer;
+}
+
+.loginForm p button:hover {
+  background-color: #FFC860;
 }
 
 .forgotPasBtn a {
@@ -104,19 +129,6 @@ form {
   display: flex;
   justify-content: end;
   margin-top: 10px;
-}
-
-form input {
-  background-color: #1F3641;
-  box-shadow: 0px -8px 0px 0px #10212A inset;
-  border: none;
-  padding-inline: 10px;
-  padding-top: 10px;
-  padding-bottom: 18px;
-  width: 100%;
-  max-width: 460px;
-  border-radius: 5px;
-  color: #A8BFC9;
 }
 
 .loginTitle {
@@ -135,11 +147,15 @@ form input {
   }
 }
 
-
 .signUpForm p button {
   background-color: #31C3BD;
   box-shadow: 0px -8px 0px 0px #118C87 inset;
   margin-top: 30px;
+  cursor: pointer;
+}
+
+.signUpForm p button:hover {
+  background-color: #65E9E4;
 }
 
 .signUpTitle {
@@ -158,3 +174,23 @@ form input {
   }
 }
 
+/* Tablet Start */
+
+@media (width >= 768px) {
+
+  .container {
+    padding: 0;
+    max-width: 460px;
+    margin-inline: auto;
+  }
+
+  .header {
+    margin-bottom: 40px;
+  }
+
+}
+
+/* Desktop Start */
+
+@media (width >= 1280px) {
+}

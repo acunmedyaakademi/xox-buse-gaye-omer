@@ -3,6 +3,37 @@ button,
   cursor: pointer;
 }
 
+.header-game {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.turn {
+  padding: 9px 15px 13px;
+  background-color: #1F3641;
+  box-shadow: 0px -4px 0px 0px #10212A inset;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0.88px;
+  color: #A8BFC9;
+}
+
+.restart-btn {
+  padding: 12.31px;
+  background-color: #A8BFC9;
+  box-shadow: 0px -4px 0px 0px #6B8997 inset;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restart-btn:hover {
+  background: #DBE8ED;
+}
+
 .player-symbols {
   display: flex;
   gap: 8px;
@@ -38,15 +69,12 @@ button,
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 328px;
-  margin-inline: auto;
 }
 
 .game-boxes-area {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-width: 328px;
 }
 
 .box {
@@ -55,12 +83,25 @@ button,
   background-color: #1f3641;
   box-shadow: 0px -8px 0px 0px #10212a inset;
   border-radius: 10px;
-  padding: 10px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  svg {
+    width: 40px;
+    height: 40px;
+  }
 }
 
+.box.hover-x:hover::before {
+  content: url('data:image/svg+xml;utf8,<svg class="cross-svg" width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M53.2407 62.8526L62.8526 53.2407C64.0242 52.0691 64.0242 50.1696 62.8526 48.9981L45.8546 32.0001L62.8526 15.0021C64.0242 13.8305 64.0242 11.931 62.8526 10.7594L53.2407 1.14748C52.0691 -0.0240943 50.1696 -0.0240927 48.9981 1.14748L32.0001 18.1455L15.0021 1.14748C13.8305 -0.0240945 11.931 -0.0240945 10.7594 1.14748L1.14748 10.7594C-0.0240945 11.931 -0.0240945 13.8305 1.14748 15.0021L18.1455 32.0001L1.14748 48.9981C-0.0240933 50.1696 -0.0240924 52.0691 1.14748 53.2407L10.7594 62.8526C11.931 64.0242 13.8305 64.0242 15.0021 62.8526L32.0001 45.8546L48.9981 62.8526C50.1696 64.0242 52.0691 64.0242 53.2407 62.8526Z" fill="%2331C3BD"/></svg>');
+  opacity: 0.5;
+}
+
+.box.hover-o:hover::before {
+  content: url('data:image/svg+xml;utf8,<svg class="circle-svg" width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64C49.6731 64 64 49.6731 64 32ZM18.963 32C18.963 24.7998 24.7998 18.963 32 18.963C39.2002 18.963 45.037 24.7998 45.037 32C45.037 39.2002 39.2002 45.037 32 45.037C24.7998 45.037 18.963 39.2002 18.963 32Z" fill="%23F2B137"/></svg>');
+  opacity: 0.5;
+}
 .score-area {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -103,7 +144,6 @@ button,
   margin-bottom: 32px;
 
   h1 {
-    font-family: Outfit;
     font-weight: 700;
     font-size: 16px;
     line-height: 100%;
@@ -112,7 +152,6 @@ button,
   }
 
   p {
-    font-family: Outfit;
     font-weight: 400;
     font-size: 14px;
     line-height: 100%;
@@ -143,6 +182,10 @@ button,
     height: 32px;
     fill: #a8a8a8;
   }
+}
+
+.choice-button:hover {
+  background: #A8BFC90D;
 }
 
 .cross-svg {
@@ -187,6 +230,10 @@ button,
     color: #1a2a33;
     background-color: #f2b137;
     box-shadow: 0px -8px 0px 0px #cc8b13 inset;
+  }
+
+  a:hover {
+    background-color: #FFC860;
   }
 }
 
@@ -257,9 +304,12 @@ button,
   text-align: center;
 }
 
-.quit-btn:hover,
+.quit-btn:hover {
+  background: #DBE8ED;
+}
+
 .next-round-btn:hover {
-  opacity: 0.8;
+  background: #FFC860;
 }
 
 .winnerScreenText {
@@ -335,6 +385,55 @@ button,
 /* Tablet Start */
 
 @media (width >= 768px) {
+
+  .choice-content {
+    margin-bottom: 40px;
+  }
+  
+  .choice-button {
+    padding-block: 11px;
+    padding-left: 83px;
+    padding-right: 83.26px;
+  }
+
+  .choice-btns {
+    gap: 20px;
+  
+    a {
+      font-size: 20px;
+      letter-spacing: 1.25px;
+      padding-top: 17px;
+      padding-bottom: 25px;
+    }
+  }
+
+  .box {
+    height: 140px;
+    width: 140px;
+  
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  .header-game {
+    margin-bottom: 19px;
+  }
+
+  .game-area {
+    gap: 19px;
+  }
+
+  .score-area {
+    max-width: 460px;
+  }
+
+  .turn {
+    padding: 13px 30px 19px;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
 }
 
 /* Desktop Start */
