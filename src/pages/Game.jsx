@@ -35,6 +35,15 @@ export default function Game() {
       setPlayerMark(storedMark);
       setCpuMark(storedCpuMark);
       setIsUserTurn(storedMark === "X");
+
+      const userStarts = storedMark === "X";
+      setIsUserTurn(userStarts);
+      if (!userStarts) {
+        // Eğer kullanıcı "O" seçtiyse, CPU otomatik olarak ilk hamlesini yapar
+        setTimeout(() => {
+          handleCPUMove([...Array(9).keys()], Array(9).fill(null));
+        }, 750);
+      }
     }
   }, [setPlayerMark, setCpuMark]);
 
@@ -47,6 +56,15 @@ export default function Game() {
       setIsUserTurn(selectedMark === "X");
       setGameOver(false);
       setShowModal(false);
+      const userStarts = selectedMark === "X";
+      setIsUserTurn(userStarts);
+
+      if (!userStarts) {
+        // Yeniden başlatıldığında da eğer kullanıcı "O" seçtiyse, CPU başlamalı
+        setTimeout(() => {
+          handleCPUMove([...Array(9).keys()], Array(9).fill(null));
+        }, 750);
+      }
     }, 300);
   }
 
