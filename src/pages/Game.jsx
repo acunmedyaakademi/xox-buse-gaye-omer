@@ -140,7 +140,7 @@ export default function Game() {
       setTies((prev) => prev + 1);
       setTimeout(() => {
         setWinner("TIE");
-        rsetShowModal(true);
+        setShowModal(true);
       }, 200);
       return;
     }
