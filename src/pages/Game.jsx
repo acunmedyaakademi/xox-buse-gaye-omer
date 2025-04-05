@@ -18,6 +18,8 @@ export default function Game() {
   const [winner, setWinner] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [ties, setTies] = useState(0);
+  const [cpu, setCpu] = useState(0);
+  const [player, setPlayer] = useState(0);
 
   const winnerCombs = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -89,6 +91,7 @@ export default function Game() {
 
     if (checkWinner(newUserChoices)) {
       setGameOver(true);
+      setPlayer((prev) => prev + 1);
       setTimeout(() => {
         setWinner("YOU");
         setShowModal(true);
@@ -130,6 +133,7 @@ export default function Game() {
   useEffect(() => {
     if (cpuChoices.length > 0 && checkWinner(cpuChoices)) {
       setGameOver(true);
+      setCpu((prev) => prev + 1);
       setTimeout(() => {
         setWinner("CPU");
         setShowModal(true);
@@ -182,7 +186,7 @@ export default function Game() {
         <div className="score-area">
           <div className="player-score-section">
             <h3>{selectedMark} (YOU)</h3>
-            <p className="player-score">0</p>
+            <p className="player-score">{player}</p>
           </div>
           <div className="ties-score-section">
             <h3>TIES</h3>
@@ -190,7 +194,7 @@ export default function Game() {
           </div>
           <div className="cpu-score-section">
             <h3>{cpuMark} (CPU)</h3>
-            <p className="player-score">0</p>
+            <p className="player-score">{cpu}</p>
           </div>
         </div>
 
