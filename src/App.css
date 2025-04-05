@@ -4,11 +4,7 @@ body {
   font-family: Outfit;
 }
 
-.container {
-  padding: 24px;
-  background-color: #1a2a33;
-  min-height: 100vh;
-}
+
 
 .header {
   margin-bottom: 32px;
@@ -172,6 +168,14 @@ form {
       margin-left: 10px;
     }
   }
+}
+
+.container {
+  max-width: 460px;
+  margin-inline: auto;
+  padding: 24px;
+  background-color: #1a2a33;
+  min-height: 100vh;
 }
 
 /* Tablet Start */
