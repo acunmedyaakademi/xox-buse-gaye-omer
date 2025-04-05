@@ -7,6 +7,7 @@ import Game from './pages/Game.jsx';
 import ChoicePage from './pages/ChoicePage.jsx';
 import './assets/reset.css'
 import StartPage from './pages/StartPage.jsx';
+import GameBanner from './pages/GameBanner.jsx';
 
 export const supabase = createClient(
   'https://yoknnsdmknjaqbpodjow.supabase.co',
@@ -16,6 +17,10 @@ export const supabase = createClient(
 const routes = [
   {
     url: '/',
+    component: <GameBanner />
+  },
+  {
+    url: '/start-game',
     component: <StartPage />
   },
   {
