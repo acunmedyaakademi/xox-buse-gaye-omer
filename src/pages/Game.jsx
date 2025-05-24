@@ -115,30 +115,24 @@ export default function Game() {
     }, 750);
   }
 
-  // updatedEmptyBoxes: hamle yapılabilecek kutular
-  // updateBoxes: oyun tahtasının güncel hali
-
   function handleCPUMove(updatedEmptyBoxes, updateBoxes) {
-
-    // eğer boş kutu kalmadıysa veya oyun çoktan bittiyse dön hamle yapma
     if (updatedEmptyBoxes.length === 0 || gameOver) return;
 
-    // Eğer kutular zaten set edildiyse tekrar set etme
-    const alreadyFilled = boxes.some((box) => box !== null);
-    const alreadySet = updateBoxes.some((box) => box !== null);
-    if (!alreadyFilled && alreadySet) return;
-
-    // boş kutular içerisinden rastgele bir tanesini cpu seçer
     const cpuIndex = updatedEmptyBoxes[Math.floor(Math.random() * updatedEmptyBoxes.length)];
 
-    const newBoxes = [...updateBoxes]; // önce güncel oyun tahtası alınır
+    const newBoxes = [...updateBoxes];
     newBoxes[cpuIndex] = playerMark === "X" ? <CircleSvg /> : <CrossSvg />;
 
-    // hamle yapılan kutuyu oyun tahtasından çıkarır o kutu artık dolu
     const remainingEmptyBoxes = updatedEmptyBoxes.filter((i) => i !== cpuIndex);
+    const newCpuChoices = [...cpuChoices, cpuIndex];
 
     setBoxes(newBoxes);
     setEmptyBoxes(remainingEmptyBoxes);
+    setCpuChoices(newCpuChoices);
+
+    setTimeout(() => {
+      setIsUserTurn(true);
+    }, 100);
   }
 
   useEffect(() => {
@@ -150,63 +144,45 @@ export default function Game() {
     }
   }, [gameOver, winner]);
 
-  // kullanıcı O, oyun bitmemiş, CPU daha hamle yapmamış ve tüm kutular boş ise
+
   useEffect(() => {
-    if (!isUserTurn && !gameOver && cpuChoices.length === 0 && boxes.every(b => b === null)) {
-      // round başındaki ilk CPU hamlesini yap
+    if (!isUserTurn && !gameOver) {
+      console.log("CPU'nun sırası, handleCPUMove çağrılıyor");
       setTimeout(() => {
-        handleCPUMove([...Array(9).keys()], Array(9).fill(null));
+        handleCPUMove(emptyBoxes, boxes);
       }, 750);
     }
   }, [isUserTurn, gameOver]);
 
-  // bu fonksiyon oyun tahtasında (boxes) 3'li bir eşleşme olup olmadığını kontrol eder
-  // (SVG türüne göre eşleşme kontrolü)
-  function checkWinnerFromBoxes(boxes) {
-    for (const combo of winnerCombs) {
-      const [a, b, c] = combo;
-      if (
-        boxes[a] && boxes[b] && boxes[c] && boxes[a].type === boxes[b].type && boxes[a].type === boxes[c].type) {
-        return boxes[a].type; // CrossSvg veya CircleSvg dönebilir
-      }
-    }
-    return null;
-  }
-
   useEffect(() => {
     if (gameOver) return;
 
-    const winnerType = checkWinnerFromBoxes(boxes);
-    if (winnerType) { // kazanan var mı?
-      const cpuType = playerMark === "X" ? CircleSvg : CrossSvg; // cpu hangi işareti kullanıyor?
-      const isCpu = winnerType === cpuType; // kazanan cpu mu?
+    const winnerCombo = winnerCombs.find((combo) => {
+      const [a, b, c] = combo;
+      return boxes[a] && boxes[b] && boxes[c] &&
+        boxes[a].type === boxes[b].type &&
+        boxes[a].type === boxes[c].type;
+    });
+
+    if (winnerCombo) {
+      const symbol = boxes[winnerCombo[0]].type;
+      const cpuType = playerMark === "X" ? CircleSvg : CrossSvg;
+      const isCpuWinner = symbol === cpuType;
 
       setGameOver(true);
-      if (isCpu) {
-        setCpu(prev => prev + 1);
-        setWinner("CPU");
-      } else {
-        setPlayer(prev => prev + 1);
-        setWinner("YOU");
-      }
-      setTimeout(() => setShowModal(true), 300);
+      setWinner(isCpuWinner ? "CPU" : "YOU");
+
+      if (isCpuWinner) setCpu((prev) => prev + 1);
+      else setPlayer((prev) => prev + 1);
+
       return;
     }
 
-    // eğer boş kutu kalmadıysa (beraberlik varsa)
-    if (emptyBoxes.length === 0) {
+    if (boxes.every((b) => b !== null)) {
       setGameOver(true);
-      setTies(prev => prev + 1);
       setWinner("TIE");
-      setTimeout(() => setShowModal(true), 300);
-      return;
+      setTies((prev) => prev + 1);
     }
-
-    // sırayı güncellemek için
-    // eğer kullanıcı X ise çift sayılı hamleler onun sırası, O ise tek sayılı hamleler onun sırası
-    setIsUserTurn(playerMark === "X"
-      ? boxes.filter(Boolean).length % 2 === 0
-      : boxes.filter(Boolean).length % 2 === 1);
   }, [boxes]);
 
   return (
