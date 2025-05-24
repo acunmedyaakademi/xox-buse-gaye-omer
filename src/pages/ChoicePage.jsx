@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from '../Router'
 import { GameContext } from "./GameContext";
 import { CrossSvg, CircleSvg } from "../Svg";
@@ -6,6 +6,7 @@ import "../App.css";
 
 export default function ChoicePage() {
   const { playerMark, setPlayerMark, cpuMark, setCpuMark } = useContext(GameContext);
+  const [selectionError, setSelectionError] = useState(false); // seçim yapılmadı uyarısı
 
   const handlePlayerChoice = (mark) => {
     setPlayerMark(mark);
@@ -41,9 +42,39 @@ export default function ChoicePage() {
           </div>
           <p>REMEMBER : X GOES FIRST</p>
         </div>
+        {/* <div className="choice-btns">
+          <button className="new-game-cpu" onClick={() => {
+            if (!playerMark) {
+              setSelectionError(true);
+            } else {
+              <Link href="/game">NEW GAME (VS CPU)</Link>
+            }
+          }}>
+            NEW GAME (VS CPU)
+          </button>
+          {selectionError && (
+            <p className="error-text">Please pick a mark to start the game.</p>
+          )}
+        </div> */}
+        <div className="choice-btns">
+          <button className="new-game-cpu"><Link
+            href={playerMark ? "/game" : "#"}
+            onClick={(e) => {
+              if (!playerMark) {
+                e.preventDefault();
+                setSelectionError(true);
+              }
+            }}>
+            NEW GAME (VS CPU)
+          </Link></button>
+          {selectionError && (
+            <p className="error-text">Please pick a mark to start the game.</p>
+          )}
+        </div>
+        {/* 
         <div className="choice-btns">
           <button className="new-game-cpu"><Link href="/game">NEW GAME (VS CPU)</Link></button>
-        </div>
+        </div> */}
       </div>
     </>
   );

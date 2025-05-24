@@ -35,7 +35,6 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       <UserContext.Provider value={authUser}>
         <div className="container">
-
           {page.component}
         </div>
       </UserContext.Provider>
