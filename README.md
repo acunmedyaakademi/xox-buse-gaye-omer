@@ -1,134 +1,125 @@
 # XOX Game App
 
-> Klasik XOX (Tic Tac Toe) oyununu modern arayüz ve işleyişle sunan, kullanıcı girişi ve skor takibi destekli bir oyun uygulaması.
+> A classic Tic Tac Toe game reimagined with a modern interface, user authentication, and score tracking.
 
-## Proje Özeti
+## Project Overview
 
-Bu projede kullanıcılar çeşitli oyunlardan birini seçerek giriş yapar ve ardından XOX oyununu oynayabilirler. Oyuncu giriş yaptıktan sonra istediği işareti (X veya O) seçer. Uygulama kuralı gereği her zaman **X** ilk başlar. Oyun sırasında kazanma, kaybetme ve beraberlik durumları takip edilir ve skorlar kaydedilir. Oyuncu isterse round sıfırlanabilir ancak skorlar korunur.
+In this project, users start by choosing a game and then proceed to play Tic Tac Toe. After logging in, the player selects a preferred mark (X or O). According to the game rules, **X** always makes the first move. During gameplay, win, loss, and tie states are tracked, and scores are updated. The player can reset the round without resetting the scores.
 
-## Ana Özellikler
+## Core Features
 
-- Ana sayfada oyun seçme paneli.
+- Game selection panel on the home screen.
 
 ![image](https://github.com/user-attachments/assets/a95d7c39-55a5-4259-b6b9-64dd7d842cf1)
 
-- **Login/Register** ekranı: Oynamadan önce kullanıcı girişi zorunludur.
+- **Login/Register** screen: User authentication is required before playing.
 
-![image](https://github.com/user-attachments/assets/91718f9d-a440-49e2-bf95-d3f3f3d40fd7)
+![image](https://github.com/user-attachments/assets/91718f9d-a440-49e2-bf95-d3f3f3d40fd7)  
 ![image](https://github.com/user-attachments/assets/5151b995-ab88-41db-9f45-940ffd227f20)
 
-- Oyuncunun istediği işareti seçmesi (X veya O).
+- Player selects their desired mark (X or O).
 
 ![image](https://github.com/user-attachments/assets/f7a6b7f2-8885-442f-921b-e422f327d26e)
 
-- Seçim yapılmadan oyuna geçilirse uyarı mesajı gösterilir.
+- Warning message is displayed if the player tries to start the game without selecting a mark.
 
 ![image](https://github.com/user-attachments/assets/62995d8d-951c-4f49-a1e7-f163c3752f6a)
 
-- X her zaman ilk başlar. Seçilen işarete göre oyunun sırası ve işleyişi ayarlanır.
+- X always starts first. Turn order and logic are set accordingly based on the selected mark.
 
-- Skor tablosu ile **kullanıcı**, **beraberlik** ve **CPU** puanları izlenir.
+- Scoreboard tracks **User**, **Ties**, and **CPU** points.
 
 ![image](https://github.com/user-attachments/assets/f0812456-3929-4508-8a68-6b314d7763d0)
 
-- Oyun bittiğinde **kazanan**, **beraberlik** veya **kaybeden** ekranı görüntülenir.
+- Win, tie, or loss screen is shown when the game ends.
 
 ![image](https://github.com/user-attachments/assets/87327964-2225-4a58-ab9a-cca029d6e255)
 
-- “Next Round” ile bir sonraki elde skorlar korunarak yeni oyun başlatılabilir.
-- “Reset” butonu ile round tekrar başlatılabilir (skorlar sıfırlanmaz).
+- “Next Round” starts a new game while preserving scores.
+- “Reset” button restarts the current round (scores remain intact).
 
-## Takım Katkıları
+## Team Contributions
 
 ### Gaye Dinç
 
-- **Login** ve **Register** ekranlarını oluşturdu.
-- **Game.jsx** sayfasındaki tüm oyun kurallarını ve state yönetimini yazmaya katkı sağladı.
-- Kullanıcı seçim ekranı (**ChoicePage**) geliştirdi.
-- Oyuncunun işaretini seçmeden oyuna geçmesini engelleyen uyarı sistemini entegre etti.
-- Kazanma/kaybetme/beraberlik tespiti ve skor güncellemeleri.
-- LocalStorage ile kullanıcı işareti bilgisini yönetmeyi sağladı.
-- **GameBanner** ekranının tasarımı ve sayfa geçiş sistemini oluşturdu.
-- Slick Carousel entegresiyle oyun tanıtım kartlarını dinamikleştirdi.
-- Kullanıcının oyun başlangıcında seçtiği işarete göre hamle sıralamasını doğru şekilde ayarlayan algoritmayı geliştirmeye katkıda bulundu.
-- CPU'nun hamle yaparken yaşadığı senkronizasyon sorunlarını gidererek oyunun akışını kararlı hale getirmeye katkıda bulundu.
+- Created **Login** and **Register** screens.
+- Contributed to writing game logic and state management in **Game.jsx**.
+- Developed the player mark selection screen (**ChoicePage**).
+- Integrated warning system to prevent game start without selecting a mark.
+- Implemented win/loss/tie detection and score updates.
+- Managed player mark persistence via LocalStorage.
+- Designed **GameBanner** and implemented page navigation.
+- Integrated Slick Carousel for animated game selection cards.
+- Contributed to the turn order algorithm based on the selected mark.
+- Helped fix CPU synchronization issues for stable gameplay.
 
 ### Ömer Kuluç
 
-- **Game.jsx** sayfasındaki tüm oyun kurallarını ve state yönetimini yazmaya katkı sağladı.
-- Context API ile işaretlerin global olarak paylaşımını sağladı.
-- Mobil uyumlu stil düzenlemelerinde bulundu.
-- Kazanma/kaybetme/beraberlik tespiti ve skor güncellemeleri.
-- Resetleme mantığını kurdu.
-- Kullanıcının oyun başlangıcında seçtiği işarete göre hamle sıralamasını doğru şekilde ayarlayan algoritmayı geliştirmeye katkıda bulundu.
-- CPU'nun hamle yaparken yaşadığı senkronizasyon sorunlarını gidererek oyunun akışını kararlı hale getirmeye katkıda bulundu.
+- Contributed to writing game logic and state management in **Game.jsx**.
+- Used Context API to share player marks globally.
+- Styled mobile-responsive components.
+- Handled win/loss/tie detection and score updates.
+- Built the reset logic.
+- Contributed to the turn order algorithm based on the selected mark.
+- Helped fix CPU synchronization issues for stable gameplay.
 
 ### Buse Savaş
 
-- **Game.jsx** sayfasındaki tüm oyun kurallarını ve state yönetimini yazmaya katkı sağladı.
-- **Login** ve **Register** ekranlarını bağladı, stillendirdi.
-- Sayfa navigasyonuna uygun kullanıcı akışı oluşturdu.
-- CSS düzenlemeleri ve responsive davranışlarda görev aldı.
-- Tüm modalları oluşturdu ve stillendirdi.
-- Kullanıcıya anlık geri bildirim sağlamak amacıyla **Toastify** kütüphanesini projeye entegre etti.
-- Kullanıcının oyun başlangıcında seçtiği işarete göre hamle sıralamasını doğru şekilde ayarlayan algoritmayı geliştirmeye katkıda bulundu.
+- Contributed to writing game logic and state management in **Game.jsx**.
+- Linked and styled **Login** and **Register** screens.
+- Designed user flows based on navigation.
+- Styled the interface and ensured responsiveness.
+- Built and styled all modals.
+- Integrated **Toastify** for real-time feedback.
+- Contributed to the turn order algorithm based on the selected mark.
 
-## Kullanım Akışı
+## Usage Flow
 
-1. Uygulama açıldığında kullanıcı oyun seçer.
-2. XOX oyununa girildiğinde kullanıcı girişi istenir.
-3. Giriş yaptıktan sonra kullanıcı X veya O işaretini seçer.
-4. Oyun, X'in ilk başlaması kuralına göre başlar.
-5. Her hamleden sonra kazanma/beraberlik kontrolü yapılır.
-6. Skorlar güncellenir ve oyun devam eder.
-7. Oyun sonucu modal ile gösterilir, kullanıcı isterse sonraki round’a geçer veya oyunu sıfırlar.
+1. User selects a game on app startup.
+2. When Tic Tac Toe is selected, a login screen appears.
+3. After logging in, the user selects X or O.
+4. The game starts, with X always going first.
+5. Each move is followed by a win/tie check.
+6. Scores update, and the game continues.
+7. When the game ends, a modal shows the result, and the user can choose to start a new round or reset.
 
-## Kullanılan Teknolojiler
+## Technologies Used
 
-- **React.js** – Arayüz ve bileşen yapısı
-- **Context API** – Global state yönetimi (işaret paylaşımı vs.)
-- **React Router** – Sayfa geçişleri
-- **LocalStorage** – Kullanıcı seçimi ve işaretlerin kaydedilmesi
-- **Custom CSS** – Tasarım ve responsive yapı
-- **Slick Carousel** – Ana sayfadaki oyun seçim slaytları
-- **SVG Icon Components** – İşaret ikonları (X ve O)
+- **React.js** – UI and component structure
+- **Context API** – Global state management
+- **React Router** – Page navigation
+- **LocalStorage** – Persistence of user preferences
+- **Custom CSS** – Styling and responsive design
+- **Slick Carousel** – Game selection slider on the homepage
+- **SVG Icon Components** – Icons for X and O
 
-## Projeyi Çalıştırma
-
-### 1. Repozitoyu klonla
+## Getting Started
 
 ```bash
-git clone https://github.com/kullanici-adi/xox-game-app.git
-```
+# 1. Clone the repository
+git clone https://github.com/your-username/xox-game-app.git
 
-### 2. Proje klasörüne geç
-
-```bash
+# 2. Navigate to the project directory
 cd xox-game-app
-```
 
-### 3. Bağımlılıkları yükle
-
-```bash
+# 3. Install dependencies
 npm install
-# veya
+# or
 yarn install
-```
 
-### 4. Geliştirme sunucusunu başlat
-
-```bash
+# 4. Start the development server
 npm run dev
-# veya
+# or
 yarn dev
 ```
 
-### 5. Uygulamayı aç
+The app will typically run at [http://localhost:5173](http://localhost:5173).
 
-Tarayıcınızda şu adresi açarak kullanmaya başlayabilirsiniz:  
-[http://localhost:5173](http://localhost:5173)
+### 5. Open in Browser
 
-## Proje Dosya Yapısı
+Open the URL in your browser to start using the application.
+
+##  Project Structure
 
 ```bash
 src
@@ -143,12 +134,12 @@ src
  ┃ ┣ LoginRegister.jsx
  ┃ ┣ StartPage.jsx
  ┃ ┗ GameContext.jsx
- ┣ Svg.jsx              # X ve O SVG bileşenleri
- ┣ Router.jsx           # Sayfa yönlendirme mantığı
- ┣ App.jsx              # Root bileşen
- ┣ App.css              # Genel stiller
- ┣ helper.js            # Yardımcı fonksiyonlar
- ┗ main.jsx             # Uygulama giriş noktası
+ ┣ Svg.jsx              # X and O SVG components
+ ┣ Router.jsx           # Routing logic
+ ┣ App.jsx              # Root component
+ ┣ App.css              # Global styles
+ ┣ helper.js            # Utility functions
+ ┗ main.jsx             # App entry point
 
 README.md
 index.html
@@ -156,6 +147,6 @@ vite.config.js
 package.json
 ```
 
-## Sonuç
+## Conclusion
 
-**XOX Game App** sade ve sezgisel kullanıcı arayüzüyle klasik bir oyunu modern hâle getiriyor. Kayıt/giriş sistemi, kullanıcı seçimi, skor takibi ve responsive tasarımıyla oyun deneyimi hem mobilde hem masaüstünde rahatlıkla kullanılabiliyor. Takım çalışmasıyla ortaya çıkan bu proje, React ekosisteminin temel bileşenlerini etkili şekilde birleştiriyor.
+**XOX Game App** brings a timeless classic into the modern age with a clean, intuitive interface. Featuring login/register support, mark selection, score tracking, and responsive design, it’s accessible on both mobile and desktop. This team project demonstrates strong collaboration and practical use of the React ecosystem.
