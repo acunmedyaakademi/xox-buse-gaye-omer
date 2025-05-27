@@ -44,12 +44,11 @@ const routes = [
 
 const rootElement = document.getElementById('root');
 
-// **Burada createRoot çağrısını yalnızca bir kez yapıyoruz**
+// Burada createRoot çağrısını yalnızca bir kez yapıyoruz
 if (!rootElement.__root) {
   rootElement.__root = createRoot(rootElement);
 }
 
-// **Önceden oluşturulan root nesnesini kullanarak render işlemi yapıyoruz**
 rootElement.__root.render(
   <Router routes={routes}>
     <App />
