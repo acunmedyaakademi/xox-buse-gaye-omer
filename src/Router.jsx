@@ -28,7 +28,6 @@ export default function Router({ routes, children }) {
   );
 }
 
-// **HATA BURADAYDI!** Eğer `export` unutulursa, `import { Link }` hata verir!
 export function Link({ href, children, ...props }) {
   function handleClick(e) {
     e.preventDefault();

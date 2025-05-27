@@ -10,11 +10,11 @@ import 'react-toastify/dist/ReactToastify.css';
 export const UserContext = createContext(null);
 
 function App() {
-  const page = usePage(); // Burada artık `undefined` olmamalı!
+  const page = usePage();
   const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
-    console.log("Aktif Sayfa:", page.path); // 🚀 Debug için buraya ekleyelim!
+    console.log("Aktif Sayfa:", page.path);
   }, [page]);
 
   useEffect(() => {
