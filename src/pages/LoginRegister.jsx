@@ -65,7 +65,7 @@ export default function LoginRegister() {
 
         // 2 saniye sonra giriş sayfasına yönlendir
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.hash = "/login";
         }, 2000);
       }
     } else {
@@ -87,7 +87,7 @@ export default function LoginRegister() {
 
       // Giriş yaptıktan sonra yönlendirme
       setTimeout(() => {
-        window.location.href = "/choice-page";
+        window.location.hash = "/choice-page";
       }, 3000);
     }
   }
@@ -121,14 +121,21 @@ export default function LoginRegister() {
         <p><input required type="email" name="email" placeholder='E-mail Address' /></p>
         <p><input required type="password" name="password" placeholder='Password' /></p>
         <p>
-          <button>{isRegister ? 'Sign Up' : (authUser ? <Link href="/choice-page">Login</Link> : 'Login')}</button>
-          <div className="forgotPasBtn">
-            {!isRegister ?
-              <Link href="/forgot-my-password">Forgot Password</Link>
-              : ''
-            }
-          </div>
+          <button>
+            {isRegister
+              ? 'Sign Up'
+              : (authUser
+                ? <Link href="/choice-page">Login</Link>
+                : 'Login')}
+          </button>
         </p>
+
+        {!isRegister && (
+          <div className="forgotPasBtn">
+            <Link href="/forgot-my-password">Forgot Password</Link>
+          </div>
+        )}
+
       </form>
 
     </>

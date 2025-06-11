@@ -7,16 +7,24 @@ export function usePage() {
 }
 
 export default function Router({ routes, children }) {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  // Hash URL'den path'i almak için yardımcı fonksiyon
+  const getHashPath = () => {
+    const hash = window.location.hash;
+    // # işaretinden sonraki kısmı al, yoksa "/" döndür
+    return hash ? hash.substring(1) : "/";
+  };
+
+  const [currentPath, setCurrentPath] = useState(getHashPath());
 
   useEffect(() => {
     function handleRouteChange() {
-      console.log("Sayfa değişti:", window.location.pathname); // Debug için
-      setCurrentPath(window.location.pathname);
+      console.log("Sayfa değişti:", getHashPath()); // Debug için
+      setCurrentPath(getHashPath());
     }
 
-    window.addEventListener("popstate", handleRouteChange);
-    return () => window.removeEventListener("popstate", handleRouteChange);
+    // Hash değişikliğini dinle
+    window.addEventListener("hashchange", handleRouteChange);
+    return () => window.removeEventListener("hashchange", handleRouteChange);
   }, []);
 
   const activePage = routes.find((route) => route.url === currentPath) || routes[0];
@@ -31,12 +39,12 @@ export default function Router({ routes, children }) {
 export function Link({ href, children, ...props }) {
   function handleClick(e) {
     e.preventDefault();
-    window.history.pushState({}, "", href);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    // Hash router için # ile URL değiştir
+    window.location.hash = href;
   }
 
   return (
-    <a className="link" href={href} onClick={handleClick} {...props}>
+    <a className="link" href={`#${href}`} onClick={handleClick} {...props}>
       {children}
     </a>
   );
