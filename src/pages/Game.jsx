@@ -257,7 +257,7 @@ export default function Game() {
               )}
               {winner === "TIE" && <div className="rounTiedScreen"><h5>ROUND TIED</h5></div>}
               <div className="modal-buttons">
-                <button onClick={() => (window.location.href = "/choice-page")} className="quit-btn">
+                <button onClick={() => (window.location.hash = "/choice-page")} className="quit-btn">
                   QUIT
                 </button>
                 <button onClick={resetGame} className="next-round-btn">

@@ -14,6 +14,11 @@ export const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlva25uc2Rta25qYXFicG9kam93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIyMjI2MzYsImV4cCI6MjA1Nzc5ODYzNn0.EQsQkR6chR-etkWuCH10u7ooGk0KBrU6HBMsEEvpfI4'
 );
 
+// Sayfa yüklendiğinde hash yoksa varsayılan olarak # ekle
+if (!window.location.hash) {
+  window.location.hash = '/';
+}
+
 const routes = [
   {
     url: '/',
